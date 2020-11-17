@@ -2,6 +2,6 @@
     <string name="app_name">Speech</string>
     <string name="mic">Microphone</string>
     <string name="speech_to_text">Speech Recognition</string>
-    <string name="say_smtg">Say switch on or switch off</string>
+    <string name="say_smtg">Switch on | Switch off | Help</string>
     <string name="info">**for IoT project purpose** - Ong Yi Jie RDS2S1G1</string>
 </resources>

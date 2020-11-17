@@ -70,18 +70,16 @@ class MainActivity : AppCompatActivity() {
 
 
                     //Defining database
-                    val database = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com")
-                    //val database = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com")
+                    val database1 = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com")
+                    val database2 = FirebaseDatabase.getInstance("https://solenoid-lock-f65e8.firebaseio.com")
 
                     //Write to common resources firebase
-                    val data1 = database.getReference("PI_03_CONTROL/lcdscr")
-                    val data2 = database.getReference("PI_03_CONTROL/lcdtxt")
-                    val data3 = database.getReference("PI_03_CONTROL/lcdbkR")
-                    val data4 = database.getReference("PI_03_CONTROL/lcdbkG")
-                    val data5 = database.getReference("PI_03_CONTROL/lcdbkB")
-                    val data6 = database.getReference("PI_03_CONTROL/buzzer")
+                    val data1 = database1.getReference("PI_03_CONTROL")
 
-                    //if-else statement to trigger actions (switch on projector)
+                    //Write to personal firebase
+                    val data2 = database2.getReference("PI_03_CONTROL")
+
+                    //if-else statement to trigger action (switch on projector)
                     when {
                         string1.contains(string2) -> {     //Switch on
                             lcdscr = "1"
@@ -90,25 +88,37 @@ class MainActivity : AppCompatActivity() {
                             lcdbkG = "50"
                             lcdbkB = "50"
 
-                            //Update value
-                            data1.setValue(lcdscr)
-                            data2.setValue(lcdtxt)
-                            data3.setValue(lcdbkR)
-                            data4.setValue(lcdbkG)
-                            data5.setValue(lcdbkB)
-                            data6.setValue(buzzer)
+                            //Update values to common resources firebase
+                            data1.child("lcdscr").setValue(lcdscr)
+                            data1.child("lcdtxt").setValue(lcdtxt)
+                            data1.child("lcdbkR").setValue(lcdbkR)
+                            data1.child("lcdbkG").setValue(lcdbkG)
+                            data1.child("lcdbkB").setValue(lcdbkB)
+
+                            //Update values to personal firebase
+                            data2.child("lcdscr").setValue(lcdscr)
+                            data2.child("lcdtxt").setValue(lcdtxt)
+                            data2.child("lcdbkR").setValue(lcdbkR)
+                            data2.child("lcdbkG").setValue(lcdbkG)
+                            data2.child("lcdbkB").setValue(lcdbkB)
                         }
                         string1.contains(string3) -> {     //Switch off
                             lcdscr = "0"
                             lcdtxt = ""
 
-                            //Update value
-                            data1.setValue(lcdscr)
-                            data2.setValue(lcdtxt)
-                            data3.setValue(lcdbkR)
-                            data4.setValue(lcdbkG)
-                            data5.setValue(lcdbkB)
-                            data6.setValue(buzzer)
+                            //Update values to common resources firebase
+                            data1.child("lcdscr").setValue(lcdscr)
+                            data1.child("lcdtxt").setValue(lcdtxt)
+                            data1.child("lcdbkR").setValue(lcdbkR)
+                            data1.child("lcdbkG").setValue(lcdbkG)
+                            data1.child("lcdbkB").setValue(lcdbkB)
+
+                            //Update values to personal firebase
+                            data2.child("lcdscr").setValue(lcdscr)
+                            data2.child("lcdtxt").setValue(lcdtxt)
+                            data2.child("lcdbkR").setValue(lcdbkR)
+                            data2.child("lcdbkG").setValue(lcdbkG)
+                            data2.child("lcdbkB").setValue(lcdbkB)
                         }
                         string1.contains(string4) -> {     //Trigger alarm
                             lcdscr = "1"
@@ -117,51 +127,22 @@ class MainActivity : AppCompatActivity() {
                             lcdbkB = "0"
                             //buzzer = "1"
 
-                            //Update value
-                            data1.setValue(lcdscr)
-                            data2.setValue(lcdtxt)
-                            data3.setValue(lcdbkR)
-                            data4.setValue(lcdbkG)
-                            data5.setValue(lcdbkB)
-                            data6.setValue(buzzer)
+                            //Update values to common resources firebase
+                            data1.child("lcdscr").setValue(lcdscr)
+                            data1.child("lcdtxt").setValue(lcdtxt)
+                            data1.child("lcdbkR").setValue(lcdbkR)
+                            data1.child("lcdbkG").setValue(lcdbkG)
+                            data1.child("lcdbkB").setValue(lcdbkB)
+                            data1.child("buzzer").setValue(buzzer)
+
+                            //Update values to personal firebase
+                            data2.child("lcdscr").setValue(lcdscr)
+                            data2.child("lcdtxt").setValue(lcdtxt)
+                            data2.child("lcdbkR").setValue(lcdbkR)
+                            data2.child("lcdbkG").setValue(lcdbkG)
+                            data2.child("lcdbkB").setValue(lcdbkB)
+                            data2.child("buzzer").setValue(buzzer)
                         }
-                        /*   else -> {
-                               var ref = FirebaseDatabase.getInstance("https://bait2123-202010-03.firebaseio.com").getReference("PI_03_CONTROL")
-                               var temp = ""
-                               ref.child("lcdscr").addValueEventListener(object : ValueEventListener {
-                                   override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                       var temp = dataSnapshot.child("lcdscr").value
-                                       if (temp == "1") {
-                                           lcdscr = "1"
-                                           lcdtxt = "Projector is on!"
-                                           lcdbkR = "50"
-                                           lcdbkG = "50"
-                                           lcdbkB = "50"
-
-                                           //Update value
-                                           data1.setValue(lcdscr)
-                                           data2.setValue(lcdtxt)
-                                           data3.setValue(lcdbkR)
-                                           data4.setValue(lcdbkG)
-                                           data5.setValue(lcdbkB)
-                                           data6.setValue(buzzer)
-                                       } else {
-                                           lcdscr = "0"
-                                           lcdtxt = ""
-
-                                           //Update value
-                                           data1.setValue(lcdscr)
-                                           data2.setValue(lcdtxt)
-                                           data3.setValue(lcdbkR)
-                                           data4.setValue(lcdbkG)
-                                           data5.setValue(lcdbkB)
-                                           data6.setValue(buzzer)
-                                       }
-                                   }
-                                   override fun onCancelled(error: DatabaseError) {
-                                       // Actions when failed to read value
-                                   }
-                               })*/
                     }
                 }
             }
